@@ -134,12 +134,13 @@ $tgl_akhir = $_GET['tgl_akhir'] ?? date('Y-m-d');
                         $no = 1;
                         $grand_total = 0;
                         // Query tetap sama karena p.* sudah mengambil semua kolom dari tabel pembelian
-                        $query = "SELECT p.*, r.kategori_pr 
-                                FROM pembelian p
-                                INNER JOIN tr_request r ON p.id_request = r.id_request
-                                WHERE r.kategori_pr = 'KECIL' 
-                                AND p.tgl_beli BETWEEN '$tgl_awal' AND '$tgl_akhir'
-                                ORDER BY p.tgl_beli DESC";
+                      $query = "SELECT p.*, r.kategori_pr 
+            FROM pembelian p
+            INNER JOIN tr_request r ON p.id_request = r.id_request
+            WHERE r.kategori_pr = 'KECIL' 
+            /* Gunakan tgl_beli_barang agar sesuai dengan tanggal di NOTA */
+            AND p.tgl_beli_barang BETWEEN '$tgl_awal' AND '$tgl_akhir'
+            ORDER BY p.tgl_beli_barang DESC";
                         
                         $sql = mysqli_query($koneksi, $query);
                         while ($d = mysqli_fetch_array($sql)) {
