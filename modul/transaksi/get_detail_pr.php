@@ -67,16 +67,12 @@ function badge_status_item($status) {
                 <th class="text-center">Tipe</th>
                 <th class="text-center">Qty</th>
                 <th>Keterangan</th>
-<<<<<<< HEAD
                 <th class="text-center">Status</th>
-=======
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
             </tr>
         </thead>
         <tbody>
             <?php
             $no = 1;
-<<<<<<< HEAD
 
             // Hitung ringkasan status
             $summary = [
@@ -87,11 +83,6 @@ function badge_status_item($status) {
                 'TERBELI'              => 0,
             ];
 
-=======
-            
-            // Query JOIN ke master_barang dan master_mobil
-            // Pastikan alias m.plat_nomor benar-benar terambil
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
             $sql_detail = "SELECT d.*, m.plat_nomor, b.nama_barang as nama_barang_master
                            FROM tr_request_detail d
                            LEFT JOIN master_mobil m ON d.id_mobil = m.id_mobil
@@ -101,7 +92,6 @@ function badge_status_item($status) {
 
             $query_detail = mysqli_query($koneksi, $sql_detail);
 
-<<<<<<< HEAD
             if (mysqli_num_rows($query_detail) == 0) {
                 echo '<tr><td colspan="8" class="text-center py-3">Tidak ada detail item.</td></tr>';
             }
@@ -130,30 +120,13 @@ function badge_status_item($status) {
                     case 'REJECTED':           $row_class = 'table-danger';  break;
                     default:                   $row_class = '';              break;
                 }
-=======
-            if(mysqli_num_rows($query_detail) == 0) {
-                echo '<tr><td colspan="7" class="text-center py-3">Tidak ada detail item.</td></tr>';
-            }
-
-            while($d = mysqli_fetch_array($query_detail)) {
-                // LOGIKA NAMA BARANG: Utamakan nama dari master jika tersedia
-                $nama_tampil = !empty($d['nama_barang_master']) ? $d['nama_barang_master'] : $d['nama_barang_manual'];
-
-                // LOGIKA UNIT: Langsung cek plat_nomor hasil JOIN
-                // Jika plat_nomor tidak kosong (berhasil join), maka tampilkan
-                $unit_tampil = (!empty($d['plat_nomor'])) ? $d['plat_nomor'] : "-";
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
             ?>
             <tr class="<?= $row_class ?>">
                 <td class="text-center text-muted"><?= $no++ ?></td>
                 <td class="fw-bold text-dark"><?= strtoupper($nama_tampil) ?></td>
                 <td><small><?= strtoupper($d['kategori_barang']) ?></small></td>
                 <td class="text-center">
-<<<<<<< HEAD
                     <?php if ($unit_tampil != "-"): ?>
-=======
-                    <?php if($unit_tampil != "-"): ?>
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
                         <span class="badge bg-light text-dark border"><?= $unit_tampil ?></span>
                     <?php else: ?>
                         <span class="text-muted">-</span>
@@ -168,19 +141,13 @@ function badge_status_item($status) {
                     <?= (float)$d['jumlah'] ?> <small class="text-muted"><?= $d['satuan'] ?></small>
                 </td>
                 <td><small><?= $d['keterangan'] ?: '-' ?></small></td>
-<<<<<<< HEAD
                 <td class="text-center"><?= badge_status_item($status_item) ?></td>
             </tr>
             <?php endforeach; ?>
-=======
-            </tr>
-            <?php } ?>
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
         </tbody>
     </table>
 </div>
 
-<<<<<<< HEAD
 <!-- Ringkasan Status Item -->
 <div class="p-3 bg-white border-top">
     <div class="d-flex flex-wrap gap-2 align-items-center">
@@ -204,8 +171,4 @@ function badge_status_item($status) {
     <div class="mt-2 text-end">
         <small class="text-muted fst-italic">* Tampilan ini adalah ringkasan item Purchase Request tanpa menampilkan estimasi harga.</small>
     </div>
-=======
-<div class="p-2 bg-white text-end border-top">
-    <small class="text-muted italic">* Tampilan ini adalah ringkasan item Purchase Request tanpa menampilkan estimasi harga.</small>
->>>>>>> 94045b4816561a997cee91cfa3d1618d40e56612
 </div>
